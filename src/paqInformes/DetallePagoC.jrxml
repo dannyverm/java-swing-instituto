@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f5d42bc3-7cba-41a2-ab5c-bfb23d847313">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#C3CFD9">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#E6F3FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="2ec83935-f3de-40e2-8600-5714ef10eb96"/>
+	<parameter name="alumno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT a.alu_nom,a.alu_ape,p.mes,d.fecha,d.nrofactura,d.monto,p.saldo,a.cuota FROM pagos p, detalle_pago d,alumno a WHERE p.pag_cod=d.pag_cod AND a.alu_cod=p.alu_cod AND p.alu_cod=$P{alumno} AND p.estado='C' GROUP BY d.det_cod
+ORDER BY d.fecha]]>
+	</queryString>
+	<field name="alu_ape" class="java.lang.String"/>
+	<field name="alu_nom" class="java.lang.String"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="nrofactura" class="java.lang.String"/>
+	<field name="monto" class="java.lang.Double"/>
+	<field name="saldo" class="java.lang.Double"/>
+	<field name="cuota" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ed7eafa5-aaa5-45d2-abbe-93da07d8dee4" x="203" y="7" width="166" height="40"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB Demi" size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[CENTRO DE ESTUDIO GAONA SAE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="34" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="b36fe05e-db1d-4ab6-9eba-64dff8f83928" x="427" y="14" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="94c1f1ab-52cb-417d-b61e-17248f1407bf" x="0" y="14" width="115" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[NOMBRE Y APELLIDO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="cbed3220-911f-4092-94a7-52daf7219273" x="116" y="14" width="146" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alu_nom}+" "+ $F{alu_ape}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="94c1f1ab-52cb-417d-b61e-17248f1407bf" x="277" y="14" width="59" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[CUOTA Gs:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement uuid="25f1ccc0-eba0-47d3-86ba-710d6476d67a" x="335" y="14" width="89" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuota}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="94c1f1ab-52cb-417d-b61e-17248f1407bf" x="162" y="31" width="40" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="94c1f1ab-52cb-417d-b61e-17248f1407bf" x="202" y="31" width="47" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="94c1f1ab-52cb-417d-b61e-17248f1407bf" x="249" y="31" width="81" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Nro. Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="94c1f1ab-52cb-417d-b61e-17248f1407bf" x="330" y="31" width="89" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Cant. Abonada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ed7eafa5-aaa5-45d2-abbe-93da07d8dee4" x="203" y="8" width="166" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Berlin Sans FB Demi" size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Detalle de pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="MMM" isBlankWhenNull="true">
+				<reportElement uuid="43399fcc-07ab-43c9-973d-b9dfedca21fc" x="162" y="0" width="38" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="409967e2-e444-4026-9df3-cfe84d0eb5d5" x="202" y="0" width="45" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement uuid="b952f0e8-fc75-45b3-81c7-5305bb102e26" x="330" y="0" width="76" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement uuid="25f1ccc0-eba0-47d3-86ba-710d6476d67a" x="249" y="0" width="79" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nrofactura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="94c1f1ab-52cb-417d-b61e-17248f1407bf" x="289" y="5" width="40" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Saldo:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement uuid="25f1ccc0-eba0-47d3-86ba-710d6476d67a" x="330" y="0" width="113" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
